@@ -1,0 +1,173 @@
+{
+  "name": "WebHook_to_log_data",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "test-webhook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bf1666dd-91f2-45c5-b734-3e98554dfcb2",
+      "name": "Webhook",
+      "webhookId": "f0b11e63-d8c0-4de8-9db4-2f660112db97"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "10d777d1-6485-4b63-aded-f990255e55aa",
+              "name": "logmessage",
+              "value": "={{ $json.body.message }}",
+              "type": "string"
+            },
+            {
+              "id": "5624dafa-72c1-43e4-9cf8-19a2f6734908",
+              "name": "receivedAt",
+              "value": "={{ new Date().toISOString() }}",
+              "type": "string"
+            },
+            {
+              "id": "d7f37b77-5cd0-4928-b4ec-9389914dfc59",
+              "name": "favcolor",
+              "value": "={{ $json.body.favcolor }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ],
+      "id": "c4a6224f-5dcb-48a4-96d9-7704aa6c09c4",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "19NzKTEGZZttkY0TuSTejL58dYkP3HEorgaS4gDrLm7s",
+          "mode": "list",
+          "cachedResultName": "WebhookSpreadsheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19NzKTEGZZttkY0TuSTejL58dYkP3HEorgaS4gDrLm7s/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19NzKTEGZZttkY0TuSTejL58dYkP3HEorgaS4gDrLm7s/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "logMessage": "={{ $('Webhook').item.json.body.message }}",
+            "receivedAt": "={{$json[\"receivedAt\"]}}",
+            "favcolor": "={{ $('Webhook').item.json.body.favcolor }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "logMessage",
+              "displayName": "logMessage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "receivedAt",
+              "displayName": "receivedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "favcolor",
+              "displayName": "favcolor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        440,
+        0
+      ],
+      "id": "c9e44440-575f-4dd4-a052-12d3e1d7d5fd",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "CA6H4EJZRRt4e1QA",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7251f058-f9e4-4dd5-88e7-41d502f64853",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8165fdb40026658032009a0d1fa4414c8a803bca194bfbf9c9bd83390f574456"
+  },
+  "id": "7oHm5AXJaqOTUR5P",
+  "tags": [
+    {
+      "createdAt": "2025-05-22T11:09:34.314Z",
+      "updatedAt": "2025-05-22T11:09:34.314Z",
+      "id": "bbpcyGOyFwnrdBF2",
+      "name": "N8N-Practice"
+    }
+  ]
+}
